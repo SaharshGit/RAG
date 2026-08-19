@@ -1,4 +1,4 @@
-from .models import DocumentChunk
+from .models import DocumentChunk, IndexedChunk
 from .embedding import Embedding
 from .similarity import Similarity
 
@@ -10,10 +10,10 @@ class SemanticRetriever:
         self.similarity = Similarity()
 
     def retrieve(self,
-                  chunks: list[DocumentChunk],
+                  chunks: list[IndexedChunk],
                   query: str,
                   top_k: int = 5,
-                  ) -> list[tuple[DocumentChunk, float]]:
+                  ) -> list[tuple[IndexedChunk, float]]:
 
         query_vector = self.embedding.embed(query)
 
@@ -21,7 +21,7 @@ class SemanticRetriever:
 
         for chunk in chunks:
 
-            chunk_vector = self.embedding.embed(chunk.text)
+            chunk_vector = chunk.embedding
 
             score = self.similarity.cosine_similarity_dense(
                 query_vector, chunk_vector
