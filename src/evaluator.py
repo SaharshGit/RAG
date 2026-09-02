@@ -1,16 +1,18 @@
-from src.models import DocumentChunk
+from src.models import DocumentChunk, IndexedChunk
 
 class Evaluator:
 
     def hit_at_k(
             self,
             results: list[tuple[DocumentChunk, float]],
-            expected_page: int,
+            expected_pages: set[int],
 
     ) -> bool:
 
         for chunk, score in results:
-            if expected_page == chunk.page_number:
+
+            #chunk = indexed_chunk.chunk
+            if chunk.page_number in expected_pages:
 
                 return True
 
@@ -18,11 +20,13 @@ class Evaluator:
 
     def reciprocal_rank(self,
             results: list[tuple[DocumentChunk, float]],
-            expected_page: int,
+            expected_pages: set[int],
             ) -> float:
 
         for rank, (chunk, score) in enumerate(results, start=1):
-            if chunk.page_number == expected_page:
+
+            #chunk = indexed_chunk.chunk
+            if chunk.page_number in expected_pages:
                 return 1/rank
 
         return 0.0

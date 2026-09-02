@@ -19,15 +19,15 @@ class SemanticRetriever:
 
         chunk_scores = []
 
-        for chunk in chunks:
+        for indexed_chunk in chunks:
 
-            chunk_vector = chunk.embedding
+            chunk_vector = indexed_chunk.embedding
 
             score = self.similarity.cosine_similarity_dense(
                 query_vector, chunk_vector
             )
 
-            chunk_scores.append((chunk, score))
+            chunk_scores.append((indexed_chunk, score))
 
         top_k_chunks = sorted(chunk_scores, key = lambda x: x[1], reverse=True)[:top_k]
 
