@@ -93,6 +93,16 @@ for query in test_queries:
             f"\nScore: {score:.3f}"
             f"\nText: {chunk.text[:300]}"
         )
+
+    context = context_builder.build(semantic_results)
+
+    answer = generator.generate(query=query, context=context)
+
+    print("\n=== Answer ===")
+    print(answer)
+
+    break  # TEMP: only test the first query; remove to run all queries
+
 """
     evaluator = Evaluator()
 

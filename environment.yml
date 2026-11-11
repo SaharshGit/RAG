@@ -1,0 +1,15 @@
+name: rag-learning
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - pymupdf
+      - nltk
+      - sentence-transformers
+      - numpy
+      - pydantic
+      - python-dotenv
+      - sarvamai
+      - openai
